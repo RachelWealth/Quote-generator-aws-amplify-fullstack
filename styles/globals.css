@@ -1,0 +1,10 @@
+/*Google fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Source+Code+Pro:wght@200&display=swap');
+
+*{
+  box-sizing:border-box;
+  padding: 0;
+  margin: 0;
+}
