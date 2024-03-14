@@ -1,0 +1,29 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-quotegeneratorawsamp-dev-140453-authRole",
+      "UnauthRoleArn": "arn:aws:iam::471112594958:role/amplify-quotegeneratorawsamp-dev-140453-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::471112594958:role/amplify-quotegeneratorawsamp-dev-140453-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-quotegeneratorawsamp-dev-140453-deployment",
+      "UnauthRoleName": "amplify-quotegeneratorawsamp-dev-140453-unauthRole",
+      "StackName": "amplify-quotegeneratorawsamp-dev-140453",
+      "StackId": "arn:aws:cloudformation:us-east-1:471112594958:stack/amplify-quotegeneratorawsamp-dev-140453/73f6d6c0-e203-11ee-b6a6-0afff2ca8a11",
+      "AmplifyAppId": "d33agt0yvk5p0t"
+    },
+    "categories": {
+      "api": {
+        "quotegeneratorawsamp": {}
+      },
+      "auth": {
+        "quotegeneratorawsampfba43935": {}
+      },
+      "function": {
+        "quoteLambda": {
+          "deploymentBucketName": "amplify-quotegeneratorawsamp-dev-140453-deployment",
+          "s3Key": "amplify-builds/quoteLambda-2b49307963546637494a-build.zip"
+        }
+      }
+    }
+  }
+}
