@@ -1,7 +1,8 @@
-import React from "react";
+
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import { Box, CircularProgress } from "@mui/material";
 export const GradientBackgroudCon = styled.div`
   background: linear-gradient(to right, #f3052d, #e29595);
   background-size: 400% 400%;
@@ -93,7 +94,7 @@ export const QuoteGeneratorTitle = styled.div`
   }
 `;
 
-export const QuoteGeneratorSuTitle = styled.div`
+export const QuoteGeneratorSubTitle = styled.div`
   font-family: 'Caveat', cursive;
   font-size:35px;
   text-align: center;
@@ -146,4 +147,44 @@ export const QuoteGeneratorButtonText = styled.div`
     position: absolute;
     width: 100%;
     text-align: center;
+`;
+
+export const QuoteGeneratorModalCon = styled(Box)`
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70vw;
+    height: 70vh;
+    box-shadow: 24;
+    /* transition: 0.2s all ease-in-out; */
+
+    background: rgb(193 193 255 / 19%);
+    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
+    -webkit-backdrop-filter: blur( 20px );
+    backdrop-filter: blur( 20px );
+    -webkit-backdrop-filter: blur( 20px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255,255,255,0.18 );
+
+    &:focus {
+      outline: none !important;
+    }
+`;
+
+export const QuoteGeneratorModalInnerCon = styled.div`
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    position: relative;
+`;
+
+export const MpdalCircularProgress = styled(CircularProgress)`
+   color: white !important;
+    stroke-linecap: round;
+    position: relative;
+    /* to account for the larger element pushing left */
+    margin-left: -55px;
+    left: 50%;
+    transform: translateX(-50%);
 `;
