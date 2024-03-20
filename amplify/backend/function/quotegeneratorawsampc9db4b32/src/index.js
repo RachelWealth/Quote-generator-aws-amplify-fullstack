@@ -17,40 +17,40 @@ import("node-fetch")
     console.error("Failed to import node-fetch:", err);
   });
 const path = require("path");
-const fs = require("fs");
 const Jimp = require("jimp");
 
 const svg2png = require("svg2png");
-const { DynamoDBClient } =require("@aws-sdk/client-dynamodb");
-const { DynamoDBDocumentClient, UpdateCommand } =require("@aws-sdk/lib-dynamodb");
+const {
+  DynamoDBClient,
+  UpdateItemCommand,
+} = require("@aws-sdk/client-dynamodb");
 const client = new DynamoDBClient({});
-const docClient = DynamoDBDocumentClient.from(client);
+//const docClient = DynamoDBDocumentClient.from(client);
 
 async function updateQuoteDDBObject() {
-  const quoteTableName =
-    process.env.API_INSPIRATIONALQUOTES_QUOTEAPPDATATABLE_NAME;
-  const quoteObjectID = "12232-234234-234234234-234234234";
+  const quoteTableName = "QuoteAppData-wln4ejbi2vef5pcmmsuf2smxam-dev"; //env.API_INSPIRATIONALQUOTES_QUOTEAPPDATATABLE_NAME;
+  const quoteObjectID = "9d6234b4-7386-448b-9853-1ddcd47f6781";
 
   try {
     var quoteParams = {
       TableName: quoteTableName,
       Key: {
-        id: quoteObjectID,
+        id: { S: quoteObjectID },
       },
-      UpdateExpression: "SET #quotesGenerated = #quotesGenerated + :inc",
+      UpdateExpression: "SET #quoteGenerated = #quoteGenerated + :inc",
       ExpressionAttributeValues: {
-        ":inc": 1,
+        ":inc": { N: 1 },
       },
       ExpressionAttributeNames: {
-        "#quotesGenerated": "quotesGenerated",
+        "#quoteGenerated": "quoteGenerated",
       },
       ReturnValues: "UPDATED_NEW",
     };
+    const command = new UpdateItemCommand(quoteParams);
+    console.log("quoteParams:\n", command);
+    const updateQuoteObject = await client.send(command);
 
-    // const updateQuoteObject = await docClient
-    //   .updateQuoteObject(quoteParams)
-    //   .promise();
-    const updateQuoteObject = await docClient.send(new UpdateCommand(quoteParams));
+    console.log("updateQuoteObject", updateQuoteObject);
     return updateQuoteObject;
   } catch (error) {
     console.log("error updating quote object in DynamoDB", error);
@@ -59,24 +59,19 @@ async function updateQuoteDDBObject() {
 
 exports.handler = async (event) => {
   console.log(`EVENT: ${JSON.stringify(event)}`);
-
+  const imagePath = path.join("./tmp", "quote.png");
   const apiURL = "https://zenquotes.io/api/random";
 
   // Function: Generate quote image
   async function getRandomQuote(apiURLInput) {
-    // My quote is...
-    let quoteText;
-    // Author name here...
-    let quoteAuthor;
-
     // Validate response to the api
     const response = await fetch(apiURLInput);
     var quoteData = await response.json();
     console.log(quoteData);
 
     // quote elements
-    quoteText = quoteData[0].q;
-    quoteAuthor = quoteData[0].a;
+    let quoteText = quoteData[0].q;
+    let quoteAuthor = quoteData[0].a;
 
     // Image construction
     const width = 750;
@@ -141,31 +136,23 @@ exports.handler = async (event) => {
 
     //  Add background images for the svg creation
     const backgroundImages = [
-      "background/Quepal.jpg",
-      "background/Rastafari.jpg",
-      "background/GreenBlue.jpg",
-      "background/Snapchat.jpg",
+      "./background/Quepal.jpg",
+      "./background/Rastafari.jpg",
+      "./background/GreenBlue.jpg",
+      "./background/Snapchat.jpg",
     ];
 
     const randomIndex = Math.floor(Math.random() * backgroundImages.length);
     const selectedBackgroundImage = backgroundImages[randomIndex];
-
     // Composite this image together
-
-    const imagePath = path.join("./tmp", "quote-card.png");
-    const outputDirectory = path.dirname(imagePath);
-    console.log(outputDirectory);
-    if (!fs.existsSync(outputDirectory)) {
-      fs.mkdirSync(outputDirectory, { recursive: true });
-    }
-    Jimp.read(selectedBackgroundImage)
+    await Jimp.read(selectedBackgroundImage)
       .then(async (backgroundImage) => {
         backgroundImage.resize(width, height);
         // Convert SVG string to PNG buffer
         const pngBuffer = await svg2png(svgImage);
-        const svgImage = await Jimp.read(pngBuffer);
+        const svgImageJimp = await Jimp.read(pngBuffer);
         // Composite the SVG image on top of the background image
-        backgroundImage.composite(svgImage, 0, 0);
+        backgroundImage.composite(svgImageJimp, 0, 0);
         return await backgroundImage.writeAsync(imagePath);
       })
       .then(() => {
@@ -174,14 +161,12 @@ exports.handler = async (event) => {
       .catch((error) => {
         console.error("Error:", error);
       });
-
     // Function: Update DynamoDB object in table
     try {
       updateQuoteDDBObject();
     } catch (error) {
       console.log("error updating quote object in DynamoDB", error);
     }
-
     return {
       statusCode: 200,
       //  Uncomment below to enable CORS requests
@@ -189,7 +174,7 @@ exports.handler = async (event) => {
         "Content-Type": "image/png",
         "Access-Control-Allow-Origin": "*",
       },
-      body: fs.readFileSync(imagePath).toString("base64"),
+      //body: fs.readFileSync(imagePath).toString("base64"),
       isBase64Encoded: true,
     };
   }

@@ -18,7 +18,7 @@
       "function": {
         "quotegeneratorawsampc9db4b32": {
           "deploymentBucketName": "amplify-quotegeneratorawsamp-dev-181524-deployment",
-          "s3Key": "amplify-builds/quotegeneratorawsampc9db4b32-5473653443522f6b6177-build.zip"
+          "s3Key": "amplify-builds/quotegeneratorawsampc9db4b32-39383541665559476676-build.zip"
         }
       },
       "api": {

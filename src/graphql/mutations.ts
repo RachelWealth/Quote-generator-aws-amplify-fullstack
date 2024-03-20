@@ -15,7 +15,7 @@ export const createQuoteAppData = /* GraphQL */ `mutation CreateQuoteAppData(
   createQuoteAppData(input: $input, condition: $condition) {
     id
     queryName
-    queryGenerated
+    quoteGenerated
     createdAt
     updatedAt
     __typename
@@ -32,7 +32,7 @@ export const updateQuoteAppData = /* GraphQL */ `mutation UpdateQuoteAppData(
   updateQuoteAppData(input: $input, condition: $condition) {
     id
     queryName
-    queryGenerated
+    quoteGenerated
     createdAt
     updatedAt
     __typename
@@ -49,7 +49,7 @@ export const deleteQuoteAppData = /* GraphQL */ `mutation DeleteQuoteAppData(
   deleteQuoteAppData(input: $input, condition: $condition) {
     id
     queryName
-    queryGenerated
+    quoteGenerated
     createdAt
     updatedAt
     __typename

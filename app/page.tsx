@@ -29,9 +29,9 @@ const client = generateClient();
 // interface for DynamoDB object
 interface UpdateQuoteInfoData {
   id: string;
-  queryName: string;
-  queryGenerated: number;
   createdAt: string;
+  quoteGenerated: number;
+  queryName: string;
   updatedAt: string;
 }
 
@@ -39,14 +39,14 @@ interface UpdateQuoteInfoData {
 function isGraphQLResultForQuoteQueryName(
   response: any
 ): response is GraphQLResult<{
-  quotesQueryName: {
+  quoteQueryName: {
     items: [UpdateQuoteInfoData];
   };
 }> {
   return (
     response.data &&
-    response.data.quotesQueryName &&
-    response.data.quotesQueryName.items
+    response.data.quoteQueryName &&
+    response.data.quoteQueryName.items
   );
 }
 
@@ -87,12 +87,14 @@ export default function Home() {
           queryName: "LIVE",
         },
       });
+      console.log("response", response);
       //Create type guards
       if (!isGraphQLResultForQuoteQueryName(response)) {
         throw new Error("Response Data is undefined.");
       }
+      
       const receiveNumberOfQuetos =
-        response.data.quoteQueryName.items[0].queryGenerated;
+        response.data.quoteQueryName.items[0].quoteGenerated;
       setNumberOfQuotes(receiveNumberOfQuetos);
     } catch (error) {
       console.log("error getting quote data", error);

@@ -18,14 +18,14 @@ type QuoteAppData
 @auth(rules:[
   {allow:public,provider:iam,operations:[read]},
 ])
-{
+{ 
   id:ID!
   queryName: String!
     @index(
       name:"QuoteQueryName"
       queryField:"quoteQueryName"
     )
-  queryGenerated:Int!
+  quoteGenerated:Int!
   createdAt:String!
   updatedAt:String!
 }

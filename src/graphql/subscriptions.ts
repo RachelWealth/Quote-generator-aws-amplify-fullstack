@@ -2,7 +2,7 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "../../amplify/src/API";
+import * as APITypes from "../API";
 type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionInput: InputType;
   __generatedSubscriptionOutput: OutputType;
@@ -14,7 +14,7 @@ export const onCreateQuoteAppData = /* GraphQL */ `subscription OnCreateQuoteApp
   onCreateQuoteAppData(filter: $filter) {
     id
     queryName
-    queryGenerated
+    quoteGenerated
     createdAt
     updatedAt
     __typename
@@ -30,7 +30,7 @@ export const onUpdateQuoteAppData = /* GraphQL */ `subscription OnUpdateQuoteApp
   onUpdateQuoteAppData(filter: $filter) {
     id
     queryName
-    queryGenerated
+    quoteGenerated
     createdAt
     updatedAt
     __typename
@@ -46,7 +46,7 @@ export const onDeleteQuoteAppData = /* GraphQL */ `subscription OnDeleteQuoteApp
   onDeleteQuoteAppData(filter: $filter) {
     id
     queryName
-    queryGenerated
+    quoteGenerated
     createdAt
     updatedAt
     __typename

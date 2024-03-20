@@ -12,7 +12,7 @@ export const getQuoteAppData = /* GraphQL */ `query GetQuoteAppData($id: ID!) {
   getQuoteAppData(id: $id) {
     id
     queryName
-    queryGenerated
+    quoteGenerated
     createdAt
     updatedAt
     __typename
@@ -31,7 +31,7 @@ export const listQuoteAppData = /* GraphQL */ `query ListQuoteAppData(
     items {
       id
       queryName
-      queryGenerated
+      quoteGenerated
       createdAt
       updatedAt
       __typename
@@ -61,7 +61,7 @@ export const quoteQueryName = /* GraphQL */ `query QuoteQueryName(
     items {
       id
       queryName
-      queryGenerated
+      quoteGenerated
       createdAt
       updatedAt
       __typename
