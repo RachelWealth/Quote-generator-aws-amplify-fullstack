@@ -22,7 +22,7 @@
     }
   },
   "auth": {
-    "quotegeneratorawsampfba43935": {
+    "quotegeneratorawsampa4a46d2d": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -48,7 +48,7 @@
     }
   },
   "function": {
-    "quoteLambda": {
+    "quotegeneratorawsampc9db4b32": {
       "build": true,
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
@@ -56,19 +56,19 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_quoteLambda_deploymentBucketName": {
+    "AMPLIFY_function_quotegeneratorawsampc9db4b32_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "quoteLambda"
+          "resourceName": "quotegeneratorawsampc9db4b32"
         }
       ]
     },
-    "AMPLIFY_function_quoteLambda_s3Key": {
+    "AMPLIFY_function_quotegeneratorawsampc9db4b32_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "quoteLambda"
+          "resourceName": "quotegeneratorawsampc9db4b32"
         }
       ]
     }

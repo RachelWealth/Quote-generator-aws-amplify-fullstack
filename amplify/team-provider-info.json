@@ -1,28 +1,28 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-quotegeneratorawsamp-dev-140453-authRole",
-      "UnauthRoleArn": "arn:aws:iam::471112594958:role/amplify-quotegeneratorawsamp-dev-140453-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::471112594958:role/amplify-quotegeneratorawsamp-dev-140453-authRole",
+      "AuthRoleName": "amplify-quotegeneratorawsamp-dev-181524-authRole",
+      "UnauthRoleArn": "arn:aws:iam::471112594958:role/amplify-quotegeneratorawsamp-dev-181524-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::471112594958:role/amplify-quotegeneratorawsamp-dev-181524-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-quotegeneratorawsamp-dev-140453-deployment",
-      "UnauthRoleName": "amplify-quotegeneratorawsamp-dev-140453-unauthRole",
-      "StackName": "amplify-quotegeneratorawsamp-dev-140453",
-      "StackId": "arn:aws:cloudformation:us-east-1:471112594958:stack/amplify-quotegeneratorawsamp-dev-140453/73f6d6c0-e203-11ee-b6a6-0afff2ca8a11",
-      "AmplifyAppId": "d33agt0yvk5p0t"
+      "DeploymentBucketName": "amplify-quotegeneratorawsamp-dev-181524-deployment",
+      "UnauthRoleName": "amplify-quotegeneratorawsamp-dev-181524-unauthRole",
+      "StackName": "amplify-quotegeneratorawsamp-dev-181524",
+      "StackId": "arn:aws:cloudformation:us-east-1:471112594958:stack/amplify-quotegeneratorawsamp-dev-181524/46c93570-e614-11ee-90c2-0affedcbfe25",
+      "AmplifyAppId": "d2juflcim1k4x"
     },
     "categories": {
-      "api": {
-        "quotegeneratorawsamp": {}
-      },
       "auth": {
-        "quotegeneratorawsampfba43935": {}
+        "quotegeneratorawsampa4a46d2d": {}
       },
       "function": {
-        "quoteLambda": {
-          "deploymentBucketName": "amplify-quotegeneratorawsamp-dev-140453-deployment",
-          "s3Key": "amplify-builds/quoteLambda-775a4f52337474453570-build.zip"
+        "quotegeneratorawsampc9db4b32": {
+          "deploymentBucketName": "amplify-quotegeneratorawsamp-dev-181524-deployment",
+          "s3Key": "amplify-builds/quotegeneratorawsampc9db4b32-5473653443522f6b6177-build.zip"
         }
+      },
+      "api": {
+        "quotegeneratorawsamp": {}
       }
     }
   }
