@@ -9,7 +9,7 @@ type Query{
   @auth(rules:[
     {allow:public, provider:iam},
   ])
-  @function(name:"quoteLambda-${env}")
+  @function(name:"quotegeneratorawsampc9db4b32-${env}")
 }
 
 # Public Data

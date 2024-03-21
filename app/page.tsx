@@ -12,7 +12,7 @@ import {
   QuoteGeneratorInnerCon,
   QuoteGeneratorSubTitle,
   QuoteGeneratorTitle,
-} from "@/components/quoteGenerator/QuoteFeneratorElements";
+} from "@/components/quoteGenerator/QuoteGeneratorElements";
 import Clouds1 from "@/assets/Clouds1.png";
 import Clouds2 from "@/assets/cloudy-weather.png";
 import { useEffect, useState } from "react";
@@ -34,7 +34,19 @@ interface UpdateQuoteInfoData {
   queryName: string;
   updatedAt: string;
 }
+interface GenerateAQuoteData {
+  generateAQuote: {
+    statusCode: number;
+    headers: { [key: string]: string };
+    body: string;
+  }
+}
 
+interface QuetoRequestResult{
+  data:{
+    generateAQuote:string
+  }
+}
 // type guard for our fetch function
 function isGraphQLResultForQuoteQueryName(
   response: any
@@ -59,19 +71,35 @@ export default function Home() {
 
   const handleCloseGenerator = () => {
     setOpenGenerator(false);
+    setProcessingQuote(false);
+    setQuoteReceived(null);
   };
-  const handleOpenGenerator = (e: React.SyntheticEvent) => {
+  const handleOpenGenerator = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setOpenGenerator(true);
     setProcessingQuote(true);
     try {
       // Lambda
-      setTimeout(() => {
-        console.log("time out")
-        setProcessingQuote(false);
-      }, 3000);
-
+      const runFunction = "runFunction"
+      const runFunctionStringified=JSON.stringify(runFunction)
+      const response = await client.graphql<GenerateAQuoteData>({
+        query:queries.generateAQuote,
+        authMode:"iam",
+        variables:{
+          input:runFunctionStringified,
+        }
+      })
+      const responseReStringified = response.data.generateAQuote
+      const bodyIndex = responseReStringified.indexOf("body=") + 5;
+      const bodyAndBase64 = responseReStringified.substring(bodyIndex);
+      const bodyArray = bodyAndBase64.split(",");
+      const body = bodyArray[0];
+      console.log(body);
+      setQuoteReceived(body);
       setProcessingQuote(false);
+
+      updateQuoteInfo();
+      //setProcessingQuote(false);
     } catch (error) {
       console.log("error processing quote", error);
       setProcessingQuote(false);
@@ -100,9 +128,7 @@ export default function Home() {
       console.log("error getting quote data", error);
     }
   };
-  useEffect(() => {
-    updateQuoteInfo();
-  });
+
 
   return (
     <div>

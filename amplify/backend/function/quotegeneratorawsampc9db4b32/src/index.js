@@ -18,6 +18,7 @@ import("node-fetch")
   });
 const path = require("path");
 const Jimp = require("jimp");
+const fs = require("fs");
 
 const svg2png = require("svg2png");
 const {
@@ -35,22 +36,19 @@ async function updateQuoteDDBObject() {
     var quoteParams = {
       TableName: quoteTableName,
       Key: {
-        id: { S: quoteObjectID },
+        "id": { "S": quoteObjectID },
       },
       UpdateExpression: "SET #quoteGenerated = #quoteGenerated + :inc",
       ExpressionAttributeValues: {
-        ":inc": { N: 1 },
+        ":inc": { "N": "1" }
       },
       ExpressionAttributeNames: {
-        "#quoteGenerated": "quoteGenerated",
+        "#quoteGenerated": "quoteGenerated"
       },
-      ReturnValues: "UPDATED_NEW",
+      ReturnValues: "UPDATED_NEW"
     };
     const command = new UpdateItemCommand(quoteParams);
-    console.log("quoteParams:\n", command);
     const updateQuoteObject = await client.send(command);
-
-    console.log("updateQuoteObject", updateQuoteObject);
     return updateQuoteObject;
   } catch (error) {
     console.log("error updating quote object in DynamoDB", error);
@@ -67,7 +65,6 @@ exports.handler = async (event) => {
     // Validate response to the api
     const response = await fetch(apiURLInput);
     var quoteData = await response.json();
-    console.log(quoteData);
 
     // quote elements
     let quoteText = quoteData[0].q;
@@ -95,7 +92,6 @@ exports.handler = async (event) => {
     if (newText !== "") {
       tspanElements += `<tspan x="${width / 2}" dy="1.2em">${newText}</tspan>`;
     }
-    console.log(tspanElements);
 
     // Construct the SVG
     const svgImage = `
@@ -130,7 +126,7 @@ exports.handler = async (event) => {
                   </g>
                 <text x="${width / 2}" y="${
       height - 10
-    }" class="footerStyles">Developed by @BrianHHough | Quotes from ZenQuotes.io</text>
+    }" class="footerStyles">Developed by @YL D | Quotes from ZenQuotes.io</text>
             </svg>
           `;
 
@@ -153,7 +149,7 @@ exports.handler = async (event) => {
         const svgImageJimp = await Jimp.read(pngBuffer);
         // Composite the SVG image on top of the background image
         backgroundImage.composite(svgImageJimp, 0, 0);
-        return await backgroundImage.writeAsync(imagePath);
+        return await backgroundImage.writeAsync(imagePath,{ overwrite: true });
       })
       .then(() => {
         console.log("Composite image saved successfully.");
@@ -163,7 +159,7 @@ exports.handler = async (event) => {
       });
     // Function: Update DynamoDB object in table
     try {
-      updateQuoteDDBObject();
+      await updateQuoteDDBObject();
     } catch (error) {
       console.log("error updating quote object in DynamoDB", error);
     }
@@ -174,7 +170,7 @@ exports.handler = async (event) => {
         "Content-Type": "image/png",
         "Access-Control-Allow-Origin": "*",
       },
-      //body: fs.readFileSync(imagePath).toString("base64"),
+      body: fs.readFileSync(imagePath).toString("base64"),
       isBase64Encoded: true,
     };
   }

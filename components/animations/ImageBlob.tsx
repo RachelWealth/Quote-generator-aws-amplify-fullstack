@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 interface ImageBlobConProps {
-  quoteReceived: string | null;
-  blobUrl?: string | null;
+  blobUrl: string | null;
 }
 const ImageBlob = ({
-  quoteReceived,
+  blobUrl
 }: //blobUrl
 ImageBlobConProps) => {
-  const [blobUrl, serBlobUrl] = useState<string | null>(null);
-  useEffect(() => {
-    const response = {
-      statusCode: 200,
-      headers: {},
-    };
-  });
+
   if (!blobUrl) {
     return null;
   }

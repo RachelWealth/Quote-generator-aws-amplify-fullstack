@@ -6,7 +6,7 @@ import {
   QuoteGeneratorModalInnerCon,
   QuoteGeneratorSubTitle,
   QuoteGeneratorTitle,
-} from "./QuoteFeneratorElements";
+} from "./QuoteGeneratorElements";
 import { ImageBlobCon } from "../animations/AnimationElements";
 import ImageBlob from "../animations/ImageBlob";
 import AnimatedDownloadButton from "../animations/AnimatedDownloadButton";
@@ -20,7 +20,6 @@ interface QuoteGeneratorProps {
   setQuoteReceived: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-const style = {};
 
 const QuoteGeneratorModal = ({
   open,
@@ -30,8 +29,8 @@ const QuoteGeneratorModal = ({
   quoteReceived,
   setQuoteReceived,
 }: QuoteGeneratorProps) => {
-  const wiseDevQuote = "123";
-  const wiseDevQuoteAuthor = "author";
+  const wiseDevQuote = "Patience is not the ability to wait, but the ability to keep a good attitude while waiting";
+  const wiseDevQuoteAuthor = "Joyce Meyer";
   const [blobUrl, setBlobUrl] = useState<string | null>(null);
   // handle downloading the quote card
   const handleDownload = () => {
@@ -94,7 +93,6 @@ const QuoteGeneratorModal = ({
                   <QuoteGeneratorSubTitle>See a preview</QuoteGeneratorSubTitle>
                   <ImageBlobCon>
                     <ImageBlob
-                      quoteReceived={quoteReceived}
                       blobUrl={blobUrl}
                     ></ImageBlob>
                   </ImageBlobCon>
