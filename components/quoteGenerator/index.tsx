@@ -1,3 +1,4 @@
+"use client"
 import { Backdrop, CircularProgress, Fade, Modal } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import {
@@ -34,12 +35,13 @@ const QuoteGeneratorModal = ({
   const [blobUrl, setBlobUrl] = useState<string | null>(null);
   // handle downloading the quote card
   const handleDownload = () => {
-    const link = document.createElement("a");
-    if (typeof blobUrl === "string") {
-      link.href = blobUrl;
-      link.download = "quote.png";
-      link.click();
-    }
+
+    // const link = window.document.createElement("a");
+    // if (typeof blobUrl === "string") {
+    //   link.href = blobUrl;
+    //   link.download = "quote.png";
+    //   link.click();
+    // }
   };
 
   //handl hte receiving quote card
@@ -97,7 +99,7 @@ const QuoteGeneratorModal = ({
                     ></ImageBlob>
                   </ImageBlobCon>
                   <AnimatedDownloadButton
-                    handleDownload={handleDownload}
+                    blobUrl={blobUrl}
                   ></AnimatedDownloadButton>
                 </>
               )}

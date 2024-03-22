@@ -11,14 +11,10 @@ const nextConfig = {
       ssr: true,
       // Enabled by default.
       fileName: true,
-      // Empty by default.
-      topLevelImportPaths: [],
       // Defaults to ["index"].
       meaninglessFileNames: ["index"],
       // Enabled by default.
       cssProp: true,
-      // Empty by default.
-      namespace: "",
       // Not supported yet.
       minify: false,
       // Not supported yet.

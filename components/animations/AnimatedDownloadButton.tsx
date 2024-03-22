@@ -1,16 +1,20 @@
 import React from "react";
 import pikachuJson from "@/assets/Pikachu.json";
+
 import {
   CenteredLottie,
   DownloadQuoteCardCon,
   DownloadQuoteCardContext,
 } from "./AnimationElements";
+import Link from "next/link";
 interface AnimatedDownloadButtonProps{
-    handleDownload:()=>void
+    //handleDownload?:()=>void
+    blobUrl: string|null
 }
-const AnimatedDownloadButton = ({handleDownload}:AnimatedDownloadButtonProps) => {
+const AnimatedDownloadButton = ({ blobUrl}:AnimatedDownloadButtonProps) => {
   return (
     <div>
+      {blobUrl!==null && <Link href={blobUrl} style={{ textDecoration: 'none' }}>
       <DownloadQuoteCardCon>
         <CenteredLottie
           loop
@@ -22,6 +26,9 @@ const AnimatedDownloadButton = ({handleDownload}:AnimatedDownloadButtonProps) =>
           Download your quote card
         </DownloadQuoteCardContext>
       </DownloadQuoteCardCon>
+      </Link>
+      }
+      
     </div>
   );
 };

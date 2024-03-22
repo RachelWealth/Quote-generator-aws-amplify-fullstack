@@ -15,7 +15,7 @@ import {
 } from "@/components/quoteGenerator/QuoteGeneratorElements";
 import Clouds1 from "@/assets/Clouds1.png";
 import Clouds2 from "@/assets/cloudy-weather.png";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as queries from "@/src/graphql/queries";
 
 import { Amplify } from "aws-amplify";
@@ -34,19 +34,15 @@ interface UpdateQuoteInfoData {
   queryName: string;
   updatedAt: string;
 }
-interface GenerateAQuoteData {
-  generateAQuote: {
-    statusCode: number;
-    headers: { [key: string]: string };
-    body: string;
-  }
-}
+// interface GenerateAQuoteData {
+//   generateAQuote: {
+//     statusCode: number;
+//     headers: { [key: string]: string };
+//     body: string;
+//   }
+// }
 
-interface QuetoRequestResult{
-  data:{
-    generateAQuote:string
-  }
-}
+
 // type guard for our fetch function
 function isGraphQLResultForQuoteQueryName(
   response: any
@@ -82,14 +78,18 @@ export default function Home() {
       // Lambda
       const runFunction = "runFunction"
       const runFunctionStringified=JSON.stringify(runFunction)
-      const response = await client.graphql<GenerateAQuoteData>({
+      const response = await client.graphql({
         query:queries.generateAQuote,
         authMode:"iam",
         variables:{
           input:runFunctionStringified,
         }
       })
+      
       const responseReStringified = response.data.generateAQuote
+      if(responseReStringified===undefined||responseReStringified===null){
+        throw new Error("ResponseReStringified is null");
+      }
       const bodyIndex = responseReStringified.indexOf("body=") + 5;
       const bodyAndBase64 = responseReStringified.substring(bodyIndex);
       const bodyArray = bodyAndBase64.split(",");

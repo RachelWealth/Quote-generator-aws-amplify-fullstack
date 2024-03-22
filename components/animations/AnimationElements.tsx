@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import Image from "next/image";
-import Link from "next/link";
-import Lottie from "react-lottie-player";
+import dynamic from 'next/dynamic';
 
+const Lottie = dynamic(() => import('react-lottie-player'), { ssr: false });
 export const ImageBlobCon = styled.div`
   position: relative;
   text-align: center;
