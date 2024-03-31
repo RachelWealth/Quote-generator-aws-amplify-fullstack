@@ -5,8 +5,8 @@
 ## Front-end technique stack:
 <div style="text-align: center;">
     <img src="https://user-images.githubusercontent.com/25181517/183890598-19a0ac2d-e88a-4005-a8df-1ee36782fde1.png" alt="ICO Image" width="50" height="50">
-    
 </div>
+
 - Next.js
 
 - React
