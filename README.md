@@ -8,8 +8,11 @@
     
 </div>
 - Next.js
+
 - React
+
 - MUI
+
 - Styled-components
 
 
